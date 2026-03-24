@@ -1,0 +1,403 @@
+{
+  "datasets": [
+    {
+      "name": "323f9a2e",
+      "displayName": "Untitled dataset",
+      "queryLines": [
+        "USE CATALOG `catalog_ecobici`;\n",
+        "USE SCHEMA `golden`;\n",
+        "\n",
+        "SELECT\n",
+        "  lluvia,\n",
+        "  total_viajes\n",
+        "FROM catalog_ecobici.golden.ecobici_vs_lluvia\n",
+        "ORDER BY lluvia;"
+      ]
+    },
+    {
+      "name": "2cbf4a8e",
+      "displayName": "Untitled dataset",
+      "queryLines": [
+        "USE CATALOG `catalog_ecobici`;\n",
+        "USE SCHEMA `golden`;\n",
+        "\n",
+        "SELECT\n",
+        "  lluvia,\n",
+        "  viajes_hombres,\n",
+        "  viajes_mujeres,\n",
+        "  viajes_otros\n",
+        "FROM catalog_ecobici.golden.ecobici_vs_lluvia\n",
+        "ORDER BY lluvia;"
+      ]
+    },
+    {
+      "name": "0d1d16f2",
+      "displayName": "Untitled dataset",
+      "queryLines": [
+        "USE CATALOG `catalog_ecobici`;\n",
+        "USE SCHEMA `golden`;\n",
+        "\n",
+        "SELECT\n",
+        "  temperatura,\n",
+        "  total_viajes\n",
+        "FROM catalog_ecobici.golden.ecobici_vs_temperatura\n",
+        "ORDER BY temperatura;"
+      ]
+    },
+    {
+      "name": "0dcf5507",
+      "displayName": "Untitled dataset",
+      "queryLines": [
+        "USE CATALOG `workspace`;\n",
+        "USE SCHEMA `bronze`;\n",
+        "\n",
+        "SELECT\n",
+        "  temperatura,\n",
+        "  viajes_hombres,\n",
+        "  viajes_mujeres,\n",
+        "  viajes_otros\n",
+        "FROM catalog_ecobici.golden.ecobici_vs_temperatura\n",
+        "ORDER BY temperatura;"
+      ]
+    }
+  ],
+  "pages": [
+    {
+      "name": "b71b5f8b",
+      "displayName": "Ecobici Vs Clima",
+      "layout": [
+        {
+          "widget": {
+            "name": "22991158",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "323f9a2e",
+                  "fields": [
+                    {
+                      "name": "total_viajes",
+                      "expression": "`total_viajes`"
+                    },
+                    {
+                      "name": "lluvia",
+                      "expression": "`lluvia`"
+                    }
+                  ],
+                  "disaggregated": true
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "frame": {
+                "title": "📊 🌧️ 1. Viajes vs Lluvia -👉 Relación entre lluvia 🌧️ y volumen de viajes 🚲",
+                "showTitle": true,
+                "showDescription": true,
+                "description": "Descripción: El análisis muestra una relación inversa clara entre la cantidad de lluvia 🌧️ y el número total de viajes 🚲. A medida que la precipitación aumenta, el uso del sistema disminuye significativamente 📉. Este comportamiento sugiere que los usuarios son altamente sensibles a condiciones climáticas adversas ☁️."
+              },
+              "mark": {
+                "layout": "layer"
+              },
+              "widgetType": "scatter",
+              "encodings": {
+                "x": {
+                  "fieldName": "total_viajes",
+                  "scale": {
+                    "type": "quantitative",
+                    "fn": {
+                      "type": "symlog"
+                    }
+                  }
+                },
+                "y": {
+                  "fieldName": "lluvia",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                }
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 2,
+            "width": 6,
+            "height": 6
+          }
+        },
+        {
+          "widget": {
+            "name": "69f735e6",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "2cbf4a8e",
+                  "fields": [
+                    {
+                      "name": "lluvia",
+                      "expression": "`lluvia`"
+                    },
+                    {
+                      "name": "sum(viajes_hombres)",
+                      "expression": "SUM(`viajes_hombres`)"
+                    },
+                    {
+                      "name": "sum(viajes_mujeres)",
+                      "expression": "SUM(`viajes_mujeres`)"
+                    },
+                    {
+                      "name": "sum(viajes_otros)",
+                      "expression": "SUM(`viajes_otros`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "frame": {
+                "title": "📊 👥🌧️ 2. Viajes por género vs Lluvia 👉 Impacto de la lluvia 🌧️ en el uso por tipo de usuario 👥",
+                "showTitle": true,
+                "showDescription": true,
+                "description": "Descripción:  Todos los segmentos de usuarios (hombres, mujeres y otros 👥) presentan una disminución en el número de viajes conforme aumenta la lluvia 🌧️. El grupo “otros” muestra mayor variabilidad 📊, posiblemente debido a menor volumen de datos. En general, el patrón es consistente entre todos los usuarios."
+              },
+              "mark": {
+                "layout": "layer"
+              },
+              "widgetType": "line",
+              "encodings": {
+                "x": {
+                  "fieldName": "lluvia",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                },
+                "y": {
+                  "fields": [
+                    {
+                      "fieldName": "sum(viajes_hombres)"
+                    },
+                    {
+                      "fieldName": "sum(viajes_mujeres)"
+                    },
+                    {
+                      "fieldName": "sum(viajes_otros)"
+                    }
+                  ],
+                  "scale": {
+                    "type": "quantitative",
+                    "fn": {
+                      "type": "symlog"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "position": {
+            "x": 6,
+            "y": 2,
+            "width": 6,
+            "height": 6
+          }
+        },
+        {
+          "widget": {
+            "name": "834e9c8b",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "0d1d16f2",
+                  "fields": [
+                    {
+                      "name": "temperatura",
+                      "expression": "`temperatura`"
+                    },
+                    {
+                      "name": "total_viajes",
+                      "expression": "`total_viajes`"
+                    }
+                  ],
+                  "disaggregated": true
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "frame": {
+                "title": "📊 🌡️ 3. Viajes vs Temperatura - 👉 Relación entre temperatura 🌡️ y volumen de viajes 🚲",
+                "showTitle": true,
+                "showDescription": true,
+                "description": "La relación entre temperatura 🌡️ y uso del sistema muestra un comportamiento no lineal 📈. Se identifica un rango óptimo (alrededor de 15–18°C) donde el número de viajes alcanza su punto máximo 🔝. Temperaturas demasiado bajas o altas están asociadas con una disminución en la demanda 📉."
+              },
+              "mark": {
+                "layout": "layer"
+              },
+              "widgetType": "scatter",
+              "encodings": {
+                "x": {
+                  "fieldName": "temperatura",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                },
+                "y": {
+                  "fieldName": "total_viajes",
+                  "displayName": "total_viajes",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                }
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 8,
+            "width": 6,
+            "height": 6
+          }
+        },
+        {
+          "widget": {
+            "name": "56a725e1",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "0dcf5507",
+                  "fields": [
+                    {
+                      "name": "temperatura",
+                      "expression": "`temperatura`"
+                    },
+                    {
+                      "name": "sum(viajes_hombres)",
+                      "expression": "SUM(`viajes_hombres`)"
+                    },
+                    {
+                      "name": "sum(viajes_mujeres)",
+                      "expression": "SUM(`viajes_mujeres`)"
+                    },
+                    {
+                      "name": "sum(viajes_otros)",
+                      "expression": "SUM(`viajes_otros`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "frame": {
+                "title": "📊 👥🌡️ 4. Viajes por género vs Temperatura 👉 Comportamiento de usuarios 👥 según temperatura 🌡️",
+                "showTitle": true,
+                "showDescription": true,
+                "description": "Todos los grupos presentan un patrón similar frente a la temperatura 🌡️, con un pico de uso en condiciones templadas 🌤️. Los hombres representan el mayor volumen de viajes 🚲, seguidos por mujeres, mientras que el grupo “otros” mantiene una participación menor. No se observan diferencias estructurales significativas entre segmentos."
+              },
+              "mark": {
+                "colors": [
+                  "#077A9D",
+                  "#FCA4A1",
+                  "#00A972"
+                ],
+                "layout": "layer"
+              },
+              "widgetType": "line",
+              "encodings": {
+                "x": {
+                  "fieldName": "temperatura",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                },
+                "y": {
+                  "fields": [
+                    {
+                      "fieldName": "sum(viajes_hombres)"
+                    },
+                    {
+                      "fieldName": "sum(viajes_mujeres)"
+                    },
+                    {
+                      "fieldName": "sum(viajes_otros)"
+                    }
+                  ],
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                }
+              }
+            }
+          },
+          "position": {
+            "x": 6,
+            "y": 8,
+            "width": 6,
+            "height": 6
+          }
+        },
+        {
+          "widget": {
+            "name": "59519fc5",
+            "multilineTextboxSpec": {
+              "lines": [
+                "<span style=\"font-size:18px\">**🧠 🌦️ Descripción general del análisis</span><span style=\"font-size:18px\">&#32;-&#32; </span><span style=\"font-size:18px\">👉 Impacto de las condiciones climáticas en el uso de Ecobici 🚲**</span><br><span style=\"font-size:18px\">Descripción: Este análisis explora la relación entre variables climáticas 🌧️🌡️ y el uso del sistema Ecobici 🚲, evaluando tanto el volumen total de viajes como el comportamiento por tipo de usuario 👥. A través de visualizaciones, se identifican patrones claros que evidencian cómo las condiciones ambientales influyen directamente en la movilidad urbana 🏙️.</span>"
+              ]
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 0,
+            "width": 12,
+            "height": 2
+          }
+        }
+      ],
+      "pageType": "PAGE_TYPE_CANVAS",
+      "layoutVersion": "GRID_V1"
+    },
+    {
+      "name": "abcbac05",
+      "displayName": "Global Filters",
+      "layout": [
+        {
+          "widget": {
+            "name": "filtros",
+            "spec": {
+              "version": 2,
+              "frame": {
+                "showTitle": true,
+                "showDescription": true,
+                "title": "Filtros "
+              },
+              "widgetType": "filter-date-range-picker",
+              "encodings": {
+                "fields": []
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 0,
+            "width": 1,
+            "height": 2
+          }
+        }
+      ],
+      "pageType": "PAGE_TYPE_GLOBAL_FILTERS",
+      "layoutVersion": "GRID_V1"
+    }
+  ],
+  "uiSettings": {
+    "theme": {
+      "widgetHeaderAlignment": "ALIGNMENT_UNSPECIFIED"
+    },
+    "applyModeEnabled": false
+  }
+}
