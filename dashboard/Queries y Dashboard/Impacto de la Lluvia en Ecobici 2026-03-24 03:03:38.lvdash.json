@@ -1,0 +1,126 @@
+{
+  "datasets": [
+    {
+      "name": "7fd13836",
+      "displayName": "Ecobici vs Lluvia",
+      "queryLines": [
+        "SELECT\n",
+        "  *\n",
+        "FROM\n",
+        "  ecobici_vs_lluvia\n",
+        "ORDER BY\n",
+        "  lluvia"
+      ],
+      "catalog": "catalog_ecobici",
+      "schema": "golden"
+    }
+  ],
+  "pages": [
+    {
+      "name": "c7e4a883",
+      "displayName": "ecobici_vs_lluvia",
+      "layout": [
+        {
+          "widget": {
+            "name": "d0d60042",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "7fd13836",
+                  "fields": [
+                    {
+                      "name": "lluvia",
+                      "expression": "`lluvia`"
+                    },
+                    {
+                      "name": "sum(total_viajes)",
+                      "expression": "SUM(`total_viajes`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "frame": {
+                "title": "Impacto de la Lluvia en Viajes de Ecobici",
+                "showTitle": true
+              },
+              "widgetType": "bar",
+              "encodings": {
+                "x": {
+                  "fieldName": "lluvia",
+                  "displayName": "Lluvia (mm)",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                },
+                "y": {
+                  "fieldName": "sum(total_viajes)",
+                  "displayName": "Total de Viajes",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                },
+                "label": {
+                  "show": true
+                }
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 0,
+            "width": 6,
+            "height": 6
+          }
+        }
+      ],
+      "pageType": "PAGE_TYPE_CANVAS",
+      "layoutVersion": "GRID_V1"
+    },
+    {
+      "name": "dd09e7ef",
+      "displayName": "Global Filters",
+      "layout": [
+        {
+          "widget": {
+            "name": "ecobici-vs-lluvia",
+            "spec": {
+              "version": 2,
+              "frame": {
+                "showTitle": true,
+                "title": "ecobici_vs_lluvia"
+              },
+              "widgetType": "filter-single-select",
+              "encodings": {
+                "fields": []
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 0,
+            "width": 1,
+            "height": 2
+          }
+        }
+      ],
+      "pageType": "PAGE_TYPE_GLOBAL_FILTERS",
+      "layoutVersion": "GRID_V1"
+    },
+    {
+      "name": "49b11736",
+      "displayName": "Untitled page",
+      "pageType": "PAGE_TYPE_CANVAS"
+    }
+  ],
+  "uiSettings": {
+    "theme": {
+      "widgetHeaderAlignment": "ALIGNMENT_UNSPECIFIED"
+    },
+    "applyModeEnabled": false
+  }
+}

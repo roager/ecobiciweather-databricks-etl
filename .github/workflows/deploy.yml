@@ -1,0 +1,24 @@
+name: Deploy Pipeline
+
+on:
+  push:
+    branches:
+      - main
+      - dev
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      - name: Simulate deployment
+        run: |
+          echo "Deploying project..."
+          echo "Running ETL pipelines..."
+          echo "Promoting from DEV to PROD..."
+
+      - name: Finish
+        run: echo "Deployment completed successfully"

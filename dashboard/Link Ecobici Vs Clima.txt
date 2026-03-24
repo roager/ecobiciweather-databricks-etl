@@ -1,0 +1,3 @@
+https://dbc-88ab86d4-86c6.cloud.databricks.com/dashboardsv3/01f1276175da1c18b9b8a0af4b6274c5/published/pages/b71b5f8b?o=7474659435803646
+
+🧠 🌦️ Descripción general del análisis -  👉 Impacto de las condiciones climáticas en el uso de Ecobici 🚲Descripción: Este análisis explora la relación entre variables climáticas 🌧️🌡️ y el uso del sistema Ecobici 🚲, evaluando tanto el volumen total de viajes como el comportamiento por tipo de usuario 👥. A través de visualizaciones, se identifican patrones claros que evidencian cómo las condiciones ambientales influyen directamente en la movilidad urbana 🏙️.
